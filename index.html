@@ -211,7 +211,52 @@ footer{background:var(--text);padding:60px 60px 30px;}
 }
 </style>
 </head>
+
+<style>
+.dev-banner{
+  position:fixed;
+  top:16px;
+  right:18px;
+  z-index:99999;
+  background:linear-gradient(135deg,#8B4513 0%,#c1763d 50%,#e8953a 100%);
+  color:#fff;
+  font-family:'Lato',sans-serif;
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:0.6px;
+  padding:9px 18px 9px 14px;
+  border-radius:30px;
+  box-shadow:0 4px 20px rgba(139,69,19,0.5),0 0 0 0 rgba(193,118,61,0.7);
+  white-space:nowrap;
+  animation:devPulse 2s ease-in-out infinite;
+  cursor:default;
+  border:1.5px solid rgba(255,255,255,0.25);
+}
+.dev-banner .dev-dot{
+  display:inline-block;
+  width:7px;height:7px;
+  background:#FFD700;
+  border-radius:50%;
+  margin-right:7px;
+  vertical-align:middle;
+  animation:dotBlink 0.9s ease-in-out infinite;
+  box-shadow:0 0 6px #FFD700;
+}
+@keyframes devPulse{
+  0%,100%{transform:scale(1);box-shadow:0 4px 20px rgba(139,69,19,0.5),0 0 0 0 rgba(193,118,61,0.6);}
+  50%{transform:scale(1.04);box-shadow:0 6px 28px rgba(139,69,19,0.65),0 0 0 7px rgba(193,118,61,0);}
+}
+@keyframes dotBlink{
+  0%,100%{opacity:1;transform:scale(1);}
+  50%{opacity:0.2;transform:scale(0.7);}
+}
+@media(max-width:480px){
+  .dev-banner{font-size:9px;padding:7px 12px;top:10px;right:10px;}
+}
+</style>
+
 <body>
+<div class="dev-banner"><span class="dev-dot"></span>✨ Something BIG is coming — Bookmark us & be the first to see it! 🎁</div>
 
 <!-- NAV -->
 <nav>
@@ -262,14 +307,16 @@ footer{background:var(--text);padding:60px 60px 30px;}
 <div class="marquee-strip">
   <div class="marquee-inner">
     <span class="marquee-item">🧶 Crochet Goodies <span class="marquee-dot"></span></span>
-    <span class="marquee-item">🏺 Mud Art <span class="marquee-dot"></span></span>
+    <span class="marquee-item">🏺 Mud Art & Clay <span class="marquee-dot"></span></span>
     <span class="marquee-item">👗 Designer Clothes <span class="marquee-dot"></span></span>
     <span class="marquee-item">🧵 Embroidery Work <span class="marquee-dot"></span></span>
+    <span class="marquee-item">📷 Photography <span class="marquee-dot"></span></span>
     <span class="marquee-item">🎨 Handpainted Decor <span class="marquee-dot"></span></span>
     <span class="marquee-item">🧶 Crochet Goodies <span class="marquee-dot"></span></span>
-    <span class="marquee-item">🏺 Mud Art <span class="marquee-dot"></span></span>
+    <span class="marquee-item">🏺 Mud Art & Clay <span class="marquee-dot"></span></span>
     <span class="marquee-item">👗 Designer Clothes <span class="marquee-dot"></span></span>
     <span class="marquee-item">🧵 Embroidery Work <span class="marquee-dot"></span></span>
+    <span class="marquee-item">📷 Photography <span class="marquee-dot"></span></span>
     <span class="marquee-item">🎨 Handpainted Decor <span class="marquee-dot"></span></span>
   </div>
 </div>
@@ -347,17 +394,17 @@ footer{background:var(--text);padding:60px 60px 30px;}
     </div>
 
     <div class="prod-card reveal">
-      <div class="prod-img prod-img-2">🏺
+      <div class="prod-img prod-img-2">📸
         <span class="prod-badge">Bestseller</span>
         <span class="prod-heart">🤍</span>
       </div>
       <div class="prod-info">
-        <div class="prod-cat">Mud Art</div>
-        <div class="prod-name">Terracotta Wall Panel Set</div>
+        <div class="prod-cat">Wildlife Photography</div>
+        <div class="prod-name">Rann Wildlife — Fine Art Print</div>
         <div class="prod-maker">by <span>Rehan's Shots</span>, Bhuj Kutch</div>
         <div class="prod-footer">
           <div><span class="prod-price">₹1,200</span></div>
-          <button class="prod-add" onclick="addCart('Terracotta Wall Panel')">Add to Cart</button>
+          <button class="prod-add" onclick="addCart('Rann Wildlife Print')">Add to Cart</button>
         </div>
       </div>
     </div>
@@ -410,17 +457,17 @@ footer{background:var(--text);padding:60px 60px 30px;}
     </div>
 
     <div class="prod-card reveal">
-      <div class="prod-img prod-img-6">🏺
+      <div class="prod-img prod-img-6">🌅
         <span class="prod-badge">Bestseller</span>
         <span class="prod-heart">🤍</span>
       </div>
       <div class="prod-info">
-        <div class="prod-cat">Mud Art</div>
-        <div class="prod-name">Madhubani Painted Pot</div>
+        <div class="prod-cat">Traditional Photography</div>
+        <div class="prod-name">Kutch Craft Traditions — Photo Series</div>
         <div class="prod-maker">by <span>Rehan's Shots</span>, Bhuj Kutch</div>
         <div class="prod-footer">
           <div><span class="prod-price">₹650</span></div>
-          <button class="prod-add" onclick="addCart('Madhubani Pot')">Add to Cart</button>
+          <button class="prod-add" onclick="addCart('Kutch Traditions Photo')">Add to Cart</button>
         </div>
       </div>
     </div>
@@ -528,15 +575,15 @@ footer{background:var(--text);padding:60px 60px 30px;}
     <div class="artisan-card reveal">
       <div class="artisan-avatar artisan-avatar-2">🧵</div>
       <div class="artisan-name">Zeenat Crafts</div>
-      <div class="artisan-craft">Embroidery & Designer Wear</div>
-      <div class="artisan-bio">Zeenat Crafts specialises in exquisite hand embroidery, designer clothes, and embroidered goodies deeply rooted in the textile traditions of Kutch. Every stitch is a celebration of heritage and craftsmanship.</div>
+      <div class="artisan-craft">Embroidery, Designer Wear & Mud Art</div>
+      <div class="artisan-bio">Zeenat Crafts is a versatile creative soul from Bhuj, specialising in exquisite hand embroidery, designer clothes, and embroidered goodies — and also bringing the ancient art of mud art & clay to life. Every creation is deeply rooted in the rich textile and folk traditions of Kutch, where each stitch and mould is a celebration of heritage and craftsmanship.</div>
       <div class="artisan-location">📍 Bhuj, Kutch, Gujarat</div>
     </div>
     <div class="artisan-card reveal">
-      <div class="artisan-avatar artisan-avatar-3">🏺</div>
+      <div class="artisan-avatar artisan-avatar-3">📷</div>
       <div class="artisan-name">Rehan's Shots</div>
-      <div class="artisan-craft">Mud Art & Clay Creations</div>
-      <div class="artisan-bio">Rehan's Shots captures the soul of Kutch through stunning mud art and clay creations. Drawing inspiration from the ancient Rann landscape, every piece tells a story of the desert, its people, and its timeless beauty.</div>
+      <div class="artisan-craft">Photography & Visual Storytelling</div>
+      <div class="artisan-bio">Rehan's Shots is the lens through which Kutch comes alive. A passionate photographer and visual storyteller, Rehan captures the untold beauty of nature, age-old traditions, local crafts, and the diverse wildlife of the Rann. Beyond photography, he actively supports content creators and filmmakers — offering raw footage, location guidance, and behind-the-scenes collaboration to bring Kutch's stories to the world.</div>
       <div class="artisan-location">📍 Bhuj, Kutch, Gujarat</div>
     </div>
   </div>
