@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CraftShop — Juneja Enterprises | Handmade with Love</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --clay:#8B4513;--clay-light:#c1763d;--clay-pale:#f5e6d3;
+  --sage:#5a7a5a;--sage-light:#7a9e7a;--sage-pale:#e8f0e8;
+  --rose:#c4627a;--rose-light:#e8879a;--rose-pale:#fce8ed;
+  --gold:#c9a84c;--gold-light:#e2c47a;
+  --cream:#faf6f0;--cream-dark:#f2ebe0;--white:#fff;
+  --text:#2a1a0a;--muted:#6b5a4a;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Lato',sans-serif;background:var(--cream);color:var(--text);overflow-x:hidden;}
+
+/* ─── NAV ─── */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:12px 48px;background:rgba(139,69,19,0.96);backdrop-filter:blur(12px);border-bottom:2px solid rgba(201,168,76,0.3);}
+.nav-brand{display:flex;flex-direction:column;}
+.nav-brand-main{font-family:'Dancing Script',cursive;font-size:26px;color:var(--gold-light);line-height:1;}
+.nav-brand-sub{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-top:2px;}
+.nav-links{display:flex;gap:24px;list-style:none;align-items:center;}
+.nav-links a{font-size:12px;font-weight:400;color:rgba(255,255,255,0.8);text-decoration:none;letter-spacing:1.5px;text-transform:uppercase;transition:color .3s;}
+.nav-links a:hover{color:var(--gold-light);}
+.nav-back{background:rgba(255,255,255,0.1)!important;border:1px solid rgba(255,255,255,0.25)!important;padding:7px 16px;border-radius:20px;font-size:11px!important;}
+.nav-back:hover{background:rgba(255,255,255,0.2)!important;}
+.nav-cart{background:var(--gold);color:var(--clay)!important;padding:8px 20px;border-radius:20px;font-weight:700!important;font-size:12px!important;}
+.nav-toggle{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;}
+.nav-toggle span{display:block;width:22px;height:2px;background:var(--gold-light);}
+
+/* ─── HERO ─── */
+#hero{min-height:100vh;background:var(--clay);display:flex;align-items:center;padding:100px 60px 60px;position:relative;overflow:hidden;}
+.hero-pattern{position:absolute;inset:0;opacity:0.06;background-image:radial-gradient(circle,var(--gold) 1px,transparent 1px);background-size:30px 30px;}
+#hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 70% at 60% 40%,rgba(193,118,61,0.4),transparent 70%);}
+.hero-left{position:relative;z-index:2;max-width:600px;}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:700;color:var(--gold);letter-spacing:3px;text-transform:uppercase;margin-bottom:20px;opacity:0;animation:fadeUp .8s ease .2s forwards;}
+.hero-tag::before{content:'✦';font-size:14px;}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(42px,7vw,86px);font-weight:700;line-height:1.05;color:var(--white);margin-bottom:10px;opacity:0;animation:fadeUp .8s ease .35s forwards;}
+.hero-title em{font-style:italic;color:var(--gold-light);}
+.hero-sub{font-family:'Dancing Script',cursive;font-size:clamp(22px,3vw,34px);color:rgba(255,255,255,0.75);margin-bottom:24px;opacity:0;animation:fadeUp .8s ease .5s forwards;}
+.hero-desc{font-size:16px;font-weight:300;line-height:1.9;color:rgba(255,255,255,0.65);max-width:500px;margin-bottom:40px;opacity:0;animation:fadeUp .8s ease .65s forwards;}
+.hero-btns{display:flex;gap:16px;flex-wrap:wrap;opacity:0;animation:fadeUp .8s ease .8s forwards;}
+.btn-primary{display:inline-block;font-size:13px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--clay);background:var(--gold);padding:16px 36px;text-decoration:none;border-radius:30px;transition:all .3s;}
+.btn-primary:hover{background:var(--gold-light);transform:translateY(-2px);box-shadow:0 8px 24px rgba(201,168,76,0.4);}
+.btn-secondary{display:inline-block;font-size:13px;font-weight:400;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.85);border:1.5px solid rgba(255,255,255,0.35);padding:15px 36px;text-decoration:none;border-radius:30px;transition:all .3s;}
+.btn-secondary:hover{border-color:var(--gold);color:var(--gold-light);}
+.hero-right{position:absolute;right:-40px;top:50%;transform:translateY(-50%);z-index:1;opacity:0;animation:fadeIn 1.2s ease .5s forwards;}
+.hero-mosaic{display:grid;grid-template-columns:repeat(2,180px);grid-template-rows:repeat(2,180px);gap:12px;transform:rotate(8deg);}
+.mosaic-cell{border-radius:12px;overflow:hidden;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;font-size:72px;}
+.mosaic-cell:nth-child(1){background:rgba(201,168,76,0.15);}
+.mosaic-cell:nth-child(2){background:rgba(90,122,90,0.2);margin-top:30px;}
+.mosaic-cell:nth-child(3){background:rgba(196,98,122,0.15);margin-top:-30px;}
+.mosaic-cell:nth-child(4){background:rgba(255,255,255,0.1);}
+.hero-badges{display:flex;gap:12px;margin-top:32px;flex-wrap:wrap;opacity:0;animation:fadeUp .8s ease 1s forwards;}
+.badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.8);padding:7px 14px;border-radius:20px;font-size:12px;}
+.badge-icon{font-size:14px;}
+
+/* ─── STRIP ─── */
+.marquee-strip{background:var(--gold);padding:12px 0;overflow:hidden;white-space:nowrap;}
+.marquee-inner{display:inline-flex;gap:40px;animation:marquee 20s linear infinite;}
+.marquee-item{font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--clay);display:flex;align-items:center;gap:12px;}
+.marquee-dot{width:6px;height:6px;background:var(--clay);border-radius:50%;opacity:0.5;}
+
+/* ─── CATEGORIES ─── */
+#categories{padding:100px 60px;background:var(--cream);}
+.section-label{display:flex;align-items:center;gap:12px;font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--clay);margin-bottom:16px;}
+.section-label::before,.section-label::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--clay),transparent);}
+.section-label::after{background:linear-gradient(270deg,var(--clay),transparent);}
+.section-title{font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,48px);font-weight:700;text-align:center;color:var(--text);margin-bottom:8px;}
+.section-title em{font-style:italic;color:var(--clay-light);}
+.section-sub{text-align:center;font-size:15px;color:var(--muted);margin-bottom:60px;}
+.cat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.cat-card{border-radius:16px;overflow:hidden;position:relative;cursor:pointer;transition:transform .3s,box-shadow .3s;}
+.cat-card:hover{transform:translateY(-6px);box-shadow:0 20px 48px rgba(0,0,0,0.15);}
+.cat-card:nth-child(1){grid-row:span 2;}
+.cat-bg{height:280px;display:flex;align-items:center;justify-content:center;font-size:80px;position:relative;}
+.cat-card:nth-child(1) .cat-bg{height:100%;min-height:400px;}
+.cat-bg-1{background:linear-gradient(135deg,#8B4513,#c1763d);}
+.cat-bg-2{background:linear-gradient(135deg,#5a7a5a,#7a9e7a);}
+.cat-bg-3{background:linear-gradient(135deg,#c4627a,#e8879a);}
+.cat-bg-4{background:linear-gradient(135deg,#7a6a2a,#c9a84c);}
+.cat-bg-5{background:linear-gradient(135deg,#4a5a7a,#7a8aaa);}
+.cat-info{position:absolute;bottom:0;left:0;right:0;padding:24px 20px;background:linear-gradient(transparent,rgba(0,0,0,0.7));}
+.cat-name{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--white);margin-bottom:4px;}
+.cat-count{font-size:12px;color:rgba(255,255,255,0.7);letter-spacing:1px;}
+.cat-arrow{position:absolute;top:16px;right:16px;width:36px;height:36px;background:rgba(255,255,255,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--white);font-size:16px;transition:background .3s;}
+.cat-card:hover .cat-arrow{background:var(--gold);}
+
+/* ─── FEATURED PRODUCTS ─── */
+#products{padding:100px 60px;background:var(--cream-dark);}
+.prod-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:56px;}
+.prod-card{background:var(--white);border-radius:16px;overflow:hidden;transition:transform .3s,box-shadow .3s;cursor:pointer;}
+.prod-card:hover{transform:translateY(-6px);box-shadow:0 16px 40px rgba(0,0,0,0.12);}
+.prod-img{height:220px;display:flex;align-items:center;justify-content:center;font-size:72px;position:relative;}
+.prod-img-1{background:linear-gradient(135deg,#fce8ed,#f5c6d0);}
+.prod-img-2{background:linear-gradient(135deg,#e8f0e8,#c5dbc5);}
+.prod-img-3{background:linear-gradient(135deg,#f5e6d3,#e8c9a0);}
+.prod-img-4{background:linear-gradient(135deg,#fce8ed,#e8a0b0);}
+.prod-img-5{background:linear-gradient(135deg,#e8f0e8,#a0c4a0);}
+.prod-img-6{background:linear-gradient(135deg,#f5e6d3,#d4a574);}
+.prod-img-7{background:linear-gradient(135deg,#e8edf5,#a0b0c8);}
+.prod-img-8{background:linear-gradient(135deg,#fce8f5,#d4a0c4);}
+.prod-badge{position:absolute;top:12px;left:12px;background:var(--clay);color:var(--white);font-size:10px;font-weight:700;letter-spacing:1px;padding:4px 10px;border-radius:20px;text-transform:uppercase;}
+.prod-badge.new{background:var(--sage);}
+.prod-badge.sale{background:var(--rose);}
+.prod-heart{position:absolute;top:12px;right:12px;width:32px;height:32px;background:var(--white);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;box-shadow:0 2px 8px rgba(0,0,0,0.15);transition:transform .2s;}
+.prod-heart:hover{transform:scale(1.2);}
+.prod-info{padding:18px 16px 20px;}
+.prod-cat{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--clay-light);margin-bottom:6px;}
+.prod-name{font-family:'Playfair Display',serif;font-size:16px;font-weight:600;color:var(--text);margin-bottom:8px;line-height:1.3;}
+.prod-maker{font-size:12px;color:var(--muted);margin-bottom:12px;}
+.prod-maker span{color:var(--clay);}
+.prod-footer{display:flex;align-items:center;justify-content:space-between;}
+.prod-price{font-size:18px;font-weight:700;color:var(--clay);}
+.prod-price-old{font-size:13px;color:var(--muted);text-decoration:line-through;margin-left:6px;font-weight:400;}
+.prod-add{background:var(--clay);color:var(--white);border:none;padding:9px 18px;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer;transition:background .3s;letter-spacing:.5px;}
+.prod-add:hover{background:var(--clay-light);}
+
+/* ─── WHY HANDMADE ─── */
+#why{padding:100px 60px;background:var(--clay);position:relative;overflow:hidden;}
+#why::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 50% 0%,rgba(193,118,61,0.4),transparent 70%);}
+.why-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;position:relative;z-index:1;}
+.why-left {}
+.why-title{font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,46px);font-weight:700;color:var(--white);margin-bottom:20px;line-height:1.2;}
+.why-title em{font-style:italic;color:var(--gold-light);}
+.why-text{font-size:15px;font-weight:300;line-height:1.9;color:rgba(255,255,255,.65);margin-bottom:32px;}
+.why-points{display:flex;flex-direction:column;gap:18px;}
+.why-point{display:flex;align-items:flex-start;gap:16px;}
+.why-icon{width:44px;height:44px;background:rgba(201,168,76,0.15);border:1px solid rgba(201,168,76,0.3);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+.why-point-title{font-size:15px;font-weight:700;color:var(--white);margin-bottom:4px;}
+.why-point-text{font-size:13px;color:rgba(255,255,255,.55);line-height:1.7;}
+.why-right{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.stat-box{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:28px 24px;text-align:center;transition:background .3s;}
+.stat-box:hover{background:rgba(255,255,255,0.1);}
+.stat-num{font-family:'Playfair Display',serif;font-size:42px;font-weight:700;color:var(--gold-light);display:block;line-height:1;}
+.stat-unit{font-size:14px;color:var(--gold);font-weight:700;}
+.stat-label{font-size:12px;color:rgba(255,255,255,.5);margin-top:8px;letter-spacing:.5px;}
+
+/* ─── ARTISANS ─── */
+#artisans{padding:100px 60px;background:var(--cream);}
+.artisan-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:56px;}
+.artisan-card{background:var(--white);border-radius:20px;padding:32px 28px;text-align:center;transition:transform .3s,box-shadow .3s;}
+.artisan-card:hover{transform:translateY(-6px);box-shadow:0 16px 40px rgba(0,0,0,0.1);}
+.artisan-avatar{width:80px;height:80px;border-radius:50%;margin:0 auto 16px;display:flex;align-items:center;justify-content:center;font-size:36px;border:3px solid var(--cream-dark);}
+.artisan-avatar-1{background:linear-gradient(135deg,#f5e6d3,#e8c9a0);}
+.artisan-avatar-2{background:linear-gradient(135deg,#e8f0e8,#c5dbc5);}
+.artisan-avatar-3{background:linear-gradient(135deg,#fce8ed,#f5c6d0);}
+.artisan-name{font-family:'Playfair Display',serif;font-size:18px;font-weight:600;color:var(--text);margin-bottom:4px;}
+.artisan-craft{font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--clay-light);margin-bottom:12px;}
+.artisan-bio{font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:16px;}
+.artisan-location{font-size:12px;color:var(--muted);display:flex;align-items:center;justify-content:center;gap:4px;}
+
+/* ─── NEWSLETTER ─── */
+#newsletter{padding:80px 60px;background:linear-gradient(135deg,var(--sage),var(--sage-light));}
+.newsletter-inner{max-width:600px;margin:0 auto;text-align:center;}
+.newsletter-title{font-family:'Playfair Display',serif;font-size:clamp(26px,4vw,40px);font-weight:700;color:var(--white);margin-bottom:12px;}
+.newsletter-sub{font-size:15px;color:rgba(255,255,255,.75);margin-bottom:32px;}
+.newsletter-form{display:flex;gap:12px;max-width:480px;margin:0 auto;}
+.newsletter-input{flex:1;padding:15px 20px;border:none;border-radius:30px;font-family:'Lato',sans-serif;font-size:14px;outline:none;background:rgba(255,255,255,.95);}
+.newsletter-btn{background:var(--clay);color:var(--white);border:none;padding:15px 28px;border-radius:30px;font-size:13px;font-weight:700;cursor:pointer;transition:background .3s;white-space:nowrap;}
+.newsletter-btn:hover{background:var(--clay-light);}
+
+/* ─── FOOTER ─── */
+footer{background:var(--text);padding:60px 60px 30px;}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px;}
+.footer-brand-name{font-family:'Dancing Script',cursive;font-size:32px;color:var(--gold-light);margin-bottom:6px;}
+.footer-brand-sub{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:16px;}
+.footer-brand-desc{font-size:13px;color:rgba(255,255,255,.5);line-height:1.7;}
+.footer-col-title{font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:16px;}
+.footer-col ul{list-style:none;}
+.footer-col ul li{margin-bottom:10px;}
+.footer-col ul li a{font-size:13px;color:rgba(255,255,255,.5);text-decoration:none;transition:color .3s;}
+.footer-col ul li a:hover{color:var(--gold-light);}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.08);padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
+.footer-copy{font-size:12px;color:rgba(255,255,255,.3);}
+.footer-main-link{font-size:12px;color:var(--gold);text-decoration:none;}
+.footer-main-link:hover{color:var(--gold-light);}
+
+/* ─── CART TOAST ─── */
+.toast{position:fixed;bottom:30px;right:30px;background:var(--sage);color:var(--white);padding:14px 24px;border-radius:12px;font-size:14px;font-weight:600;transform:translateY(100px);opacity:0;transition:all .4s;z-index:1000;display:flex;align-items:center;gap:10px;}
+.toast.show{transform:translateY(0);opacity:1;}
+
+/* ─── ANIMATIONS ─── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+@keyframes marquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .6s,transform .6s;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:900px){
+  nav{padding:12px 20px;}
+  .nav-links{display:none;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:rgba(139,69,19,.98);padding:20px;gap:16px;border-bottom:1px solid rgba(201,168,76,.2);}
+  .nav-links.open{display:flex;}
+  .nav-toggle{display:flex;}
+  #hero{padding:90px 24px 60px;flex-direction:column;}
+  .hero-right{display:none;}
+  #categories,#products,#why,#artisans,#newsletter{padding:72px 24px;}
+  .cat-grid{grid-template-columns:1fr;}.cat-card:nth-child(1){grid-row:span 1;}
+  .prod-grid{grid-template-columns:repeat(2,1fr);}
+  .why-grid{grid-template-columns:1fr;}
+  .artisan-grid{grid-template-columns:1fr;}
+  .newsletter-form{flex-direction:column;}
+  footer{padding:48px 24px 24px;}
+  .footer-top{grid-template-columns:1fr;gap:32px;}
+  .footer-bottom{flex-direction:column;text-align:center;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">
+    <div class="nav-brand-main">✦ CraftShop</div>
+    <div class="nav-brand-sub">by Juneja Enterprises</div>
+  </div>
+  <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links">
+    <li><a href="#categories">Categories</a></li>
+    <li><a href="#products">Shop Now</a></li>
+    <li><a href="#artisans">Artisans</a></li>
+    <li><a href="https://junejaenterprises.com" class="nav-back">← Main Site</a></li>
+    <li><a href="#products" class="nav-cart">🛒 Cart (0)</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-left">
+    <div class="hero-tag">Handcrafted with Heart</div>
+    <h1 class="hero-title">Art That <em>Tells a Story</em></h1>
+    <p class="hero-sub">Every piece, a labour of love</p>
+    <p class="hero-desc">Discover one-of-a-kind handmade treasures crafted by skilled artisans across India — from intricate crochet work and mud art to hand-embroidered garments and designer creations.</p>
+    <div class="hero-btns">
+      <a href="#products" class="btn-primary">Shop Now</a>
+      <a href="#artisans" class="btn-secondary">Meet Artisans</a>
+    </div>
+    <div class="hero-badges">
+      <span class="badge"><span class="badge-icon">🤝</span> 100% Handmade</span>
+      <span class="badge"><span class="badge-icon">♻️</span> Eco Friendly</span>
+      <span class="badge"><span class="badge-icon">🚚</span> Free Shipping ₹999+</span>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-mosaic">
+      <div class="mosaic-cell">🧶</div>
+      <div class="mosaic-cell">🏺</div>
+      <div class="mosaic-cell">🎨</div>
+      <div class="mosaic-cell">🧵</div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-strip">
+  <div class="marquee-inner">
+    <span class="marquee-item">🧶 Crochet Goodies <span class="marquee-dot"></span></span>
+    <span class="marquee-item">🏺 Mud Art <span class="marquee-dot"></span></span>
+    <span class="marquee-item">👗 Designer Clothes <span class="marquee-dot"></span></span>
+    <span class="marquee-item">🧵 Embroidery Work <span class="marquee-dot"></span></span>
+    <span class="marquee-item">🎨 Handpainted Decor <span class="marquee-dot"></span></span>
+    <span class="marquee-item">🧶 Crochet Goodies <span class="marquee-dot"></span></span>
+    <span class="marquee-item">🏺 Mud Art <span class="marquee-dot"></span></span>
+    <span class="marquee-item">👗 Designer Clothes <span class="marquee-dot"></span></span>
+    <span class="marquee-item">🧵 Embroidery Work <span class="marquee-dot"></span></span>
+    <span class="marquee-item">🎨 Handpainted Decor <span class="marquee-dot"></span></span>
+  </div>
+</div>
+
+<!-- CATEGORIES -->
+<section id="categories">
+  <div class="section-label reveal">Our Collections</div>
+  <h2 class="section-title reveal">Shop by <em>Category</em></h2>
+  <p class="section-sub reveal">Explore our curated collections of handmade masterpieces</p>
+  <div class="cat-grid">
+    <div class="cat-card reveal">
+      <div class="cat-bg cat-bg-1" style="min-height:400px">🧶</div>
+      <div class="cat-info">
+        <div class="cat-name">Crochet Goodies</div>
+        <div class="cat-count">24 items</div>
+      </div>
+      <div class="cat-arrow">→</div>
+    </div>
+    <div class="cat-card reveal">
+      <div class="cat-bg cat-bg-2">🏺</div>
+      <div class="cat-info">
+        <div class="cat-name">Mud & Clay Art</div>
+        <div class="cat-count">18 items</div>
+      </div>
+      <div class="cat-arrow">→</div>
+    </div>
+    <div class="cat-card reveal">
+      <div class="cat-bg cat-bg-3">👗</div>
+      <div class="cat-info">
+        <div class="cat-name">Designer Clothes</div>
+        <div class="cat-count">32 items</div>
+      </div>
+      <div class="cat-arrow">→</div>
+    </div>
+    <div class="cat-card reveal">
+      <div class="cat-bg cat-bg-4">🧵</div>
+      <div class="cat-info">
+        <div class="cat-name">Embroidery Work</div>
+        <div class="cat-count">28 items</div>
+      </div>
+      <div class="cat-arrow">→</div>
+    </div>
+    <div class="cat-card reveal">
+      <div class="cat-bg cat-bg-5">🎨</div>
+      <div class="cat-info">
+        <div class="cat-name">Handpainted Art</div>
+        <div class="cat-count">15 items</div>
+      </div>
+      <div class="cat-arrow">→</div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section id="products">
+  <div class="section-label reveal">Fresh Arrivals</div>
+  <h2 class="section-title reveal">Featured <em>Products</em></h2>
+  <p class="section-sub reveal">Each piece is unique — once it's gone, it's gone!</p>
+  <div class="prod-grid">
+
+    <div class="prod-card reveal">
+      <div class="prod-img prod-img-1">🧶
+        <span class="prod-badge new">New</span>
+        <span class="prod-heart">🤍</span>
+      </div>
+      <div class="prod-info">
+        <div class="prod-cat">Crochet</div>
+        <div class="prod-name">Boho Crochet Tote Bag</div>
+        <div class="prod-maker">by <span>Priya Sharma</span>, Jaipur</div>
+        <div class="prod-footer">
+          <div><span class="prod-price">₹850</span></div>
+          <button class="prod-add" onclick="addCart('Boho Crochet Tote Bag')">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="prod-card reveal">
+      <div class="prod-img prod-img-2">🏺
+        <span class="prod-badge">Bestseller</span>
+        <span class="prod-heart">🤍</span>
+      </div>
+      <div class="prod-info">
+        <div class="prod-cat">Mud Art</div>
+        <div class="prod-name">Terracotta Wall Panel Set</div>
+        <div class="prod-maker">by <span>Ramesh Patel</span>, Ahmedabad</div>
+        <div class="prod-footer">
+          <div><span class="prod-price">₹1,200</span></div>
+          <button class="prod-add" onclick="addCart('Terracotta Wall Panel')">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="prod-card reveal">
+      <div class="prod-img prod-img-3">👗
+        <span class="prod-badge sale">Sale</span>
+        <span class="prod-heart">🤍</span>
+      </div>
+      <div class="prod-info">
+        <div class="prod-cat">Designer Clothes</div>
+        <div class="prod-name">Hand-Block Print Kurti</div>
+        <div class="prod-maker">by <span>Meena Devi</span>, Bagru</div>
+        <div class="prod-footer">
+          <div><span class="prod-price">₹1,450</span><span class="prod-price-old">₹1,800</span></div>
+          <button class="prod-add" onclick="addCart('Block Print Kurti')">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="prod-card reveal">
+      <div class="prod-img prod-img-4">🧵
+        <span class="prod-badge new">New</span>
+        <span class="prod-heart">🤍</span>
+      </div>
+      <div class="prod-info">
+        <div class="prod-cat">Embroidery</div>
+        <div class="prod-name">Kashmiri Embroidered Cushion</div>
+        <div class="prod-maker">by <span>Fatima Begum</span>, Srinagar</div>
+        <div class="prod-footer">
+          <div><span class="prod-price">₹980</span></div>
+          <button class="prod-add" onclick="addCart('Embroidered Cushion')">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="prod-card reveal">
+      <div class="prod-img prod-img-5">🎨
+        <span class="prod-heart">🤍</span>
+      </div>
+      <div class="prod-info">
+        <div class="prod-cat">Handpainted</div>
+        <div class="prod-name">Warli Art Canvas</div>
+        <div class="prod-maker">by <span>Santosh Bhil</span>, Maharashtra</div>
+        <div class="prod-footer">
+          <div><span class="prod-price">₹2,100</span></div>
+          <button class="prod-add" onclick="addCart('Warli Art Canvas')">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="prod-card reveal">
+      <div class="prod-img prod-img-6">🏺
+        <span class="prod-badge">Bestseller</span>
+        <span class="prod-heart">🤍</span>
+      </div>
+      <div class="prod-info">
+        <div class="prod-cat">Mud Art</div>
+        <div class="prod-name">Madhubani Painted Pot</div>
+        <div class="prod-maker">by <span>Geeta Devi</span>, Bihar</div>
+        <div class="prod-footer">
+          <div><span class="prod-price">₹650</span></div>
+          <button class="prod-add" onclick="addCart('Madhubani Pot')">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="prod-card reveal">
+      <div class="prod-img prod-img-7">🧶
+        <span class="prod-badge sale">Sale</span>
+        <span class="prod-heart">🤍</span>
+      </div>
+      <div class="prod-info">
+        <div class="prod-cat">Crochet</div>
+        <div class="prod-name">Crochet Plant Hanger Set</div>
+        <div class="prod-maker">by <span>Anita Verma</span>, Pune</div>
+        <div class="prod-footer">
+          <div><span class="prod-price">₹450</span><span class="prod-price-old">₹600</span></div>
+          <button class="prod-add" onclick="addCart('Crochet Plant Hanger')">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="prod-card reveal">
+      <div class="prod-img prod-img-8">👗
+        <span class="prod-badge new">New</span>
+        <span class="prod-heart">🤍</span>
+      </div>
+      <div class="prod-info">
+        <div class="prod-cat">Designer Clothes</div>
+        <div class="prod-name">Chikankari Embroidered Saree</div>
+        <div class="prod-maker">by <span>Suman Lal</span>, Lucknow</div>
+        <div class="prod-footer">
+          <div><span class="prod-price">₹3,200</span></div>
+          <button class="prod-add" onclick="addCart('Chikankari Saree')">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- WHY HANDMADE -->
+<section id="why">
+  <div class="why-grid">
+    <div class="why-left reveal">
+      <div class="section-label" style="color:var(--gold);margin-bottom:16px;">Why Choose Handmade</div>
+      <h2 class="why-title">More Than a Product —<br><em>A Living Tradition</em></h2>
+      <p class="why-text">Every item in our shop carries the fingerprints of a skilled artisan — someone who has spent years, sometimes decades, perfecting their craft. When you buy handmade, you invest in a family, a tradition, and a story.</p>
+      <div class="why-points">
+        <div class="why-point">
+          <div class="why-icon">🤲</div>
+          <div>
+            <div class="why-point-title">100% Handcrafted</div>
+            <div class="why-point-text">Every piece is made entirely by hand — no machines, no mass production. Unique to you.</div>
+          </div>
+        </div>
+        <div class="why-point">
+          <div class="why-icon">🌿</div>
+          <div>
+            <div class="why-point-title">Eco-Friendly Materials</div>
+            <div class="why-point-text">Natural dyes, recycled fabrics, sustainable clay — kind to the planet and beautiful too.</div>
+          </div>
+        </div>
+        <div class="why-point">
+          <div class="why-icon">💝</div>
+          <div>
+            <div class="why-point-title">Artisan Fair Pay</div>
+            <div class="why-point-text">We ensure every artisan receives fair, ethical compensation for their skill and time.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="why-right reveal">
+      <div class="stat-box">
+        <span class="stat-num">50<span class="stat-unit">+</span></span>
+        <div class="stat-label">Artisans Supported</div>
+      </div>
+      <div class="stat-box">
+        <span class="stat-num">117<span class="stat-unit">+</span></span>
+        <div class="stat-label">Products Available</div>
+      </div>
+      <div class="stat-box">
+        <span class="stat-num">8<span class="stat-unit">+</span></span>
+        <div class="stat-label">States Represented</div>
+      </div>
+      <div class="stat-box">
+        <span class="stat-num">500<span class="stat-unit">+</span></span>
+        <div class="stat-label">Happy Customers</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ARTISANS -->
+<section id="artisans">
+  <div class="section-label reveal">The Makers</div>
+  <h2 class="section-title reveal">Meet Our <em>Artisans</em></h2>
+  <p class="section-sub reveal">Passionate craftspeople keeping India's rich handcraft heritage alive</p>
+  <div class="artisan-grid">
+    <div class="artisan-card reveal">
+      <div class="artisan-avatar artisan-avatar-1">👩</div>
+      <div class="artisan-name">Priya Sharma</div>
+      <div class="artisan-craft">Crochet Specialist</div>
+      <div class="artisan-bio">With 15 years of crocheting experience, Priya creates stunning bags, home décor, and wearable art from her studio in Jaipur. Her intricate patterns are inspired by Rajasthani motifs.</div>
+      <div class="artisan-location">📍 Jaipur, Rajasthan</div>
+    </div>
+    <div class="artisan-card reveal">
+      <div class="artisan-avatar artisan-avatar-2">👨</div>
+      <div class="artisan-name">Ramesh Patel</div>
+      <div class="artisan-craft">Mud & Terracotta Art</div>
+      <div class="artisan-bio">Third-generation potter from Ahmedabad, Ramesh blends traditional techniques with contemporary design. His terracotta creations have been exhibited across India and Southeast Asia.</div>
+      <div class="artisan-location">📍 Ahmedabad, Gujarat</div>
+    </div>
+    <div class="artisan-card reveal">
+      <div class="artisan-avatar artisan-avatar-3">👩</div>
+      <div class="artisan-name">Fatima Begum</div>
+      <div class="artisan-craft">Kashmiri Embroidery</div>
+      <div class="artisan-bio">A master of Kashida embroidery, Fatima has been stitching stories into fabric for over 20 years. Each piece takes weeks to complete and carries the soul of the Kashmir valley.</div>
+      <div class="artisan-location">📍 Srinagar, J&K</div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section id="newsletter">
+  <div class="newsletter-inner reveal">
+    <h2 class="newsletter-title">🎁 Get 10% Off Your First Order</h2>
+    <p class="newsletter-sub">Join our community and be the first to know about new arrivals, artisan stories, and exclusive offers.</p>
+    <div class="newsletter-form">
+      <input class="newsletter-input" type="email" placeholder="Enter your email address...">
+      <button class="newsletter-btn" onclick="this.textContent='✓ Subscribed!';this.style.background='#2d6e47';">Subscribe</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand-name">✦ CraftShop</div>
+      <div class="footer-brand-sub">by Juneja Enterprises</div>
+      <div class="footer-brand-desc">A curated marketplace celebrating India's rich handcraft traditions. Every purchase supports an artisan family and preserves a centuries-old skill.</div>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Shop</div>
+      <ul>
+        <li><a href="#categories">All Categories</a></li>
+        <li><a href="#products">New Arrivals</a></li>
+        <li><a href="#products">Bestsellers</a></li>
+        <li><a href="#products">Sale Items</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Info</div>
+      <ul>
+        <li><a href="#artisans">Our Artisans</a></li>
+        <li><a href="#">Shipping Policy</a></li>
+        <li><a href="#">Returns</a></li>
+        <li><a href="#">Custom Orders</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Connect</div>
+      <ul>
+        <li><a href="https://junejaenterprises.com">Main Website</a></li>
+        <li><a href="mailto:info@junejaenterprises.com">Email Us</a></li>
+        <li><a href="https://x.com/junejaenterpris">𝕏 Twitter</a></li>
+        <li><a href="#">WhatsApp</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2025 CraftShop by Juneja Enterprises · Ahmedabad, Gujarat</div>
+    <a href="https://junejaenterprises.com" class="footer-main-link">← Back to Juneja Enterprises</a>
+  </div>
+</footer>
+
+<!-- TOAST -->
+<div class="toast" id="toast">✓ Added to cart!</div>
+
+<script>
+var cartCount = 0;
+function addCart(name){
+  cartCount++;
+  document.querySelector('.nav-cart').textContent = '🛒 Cart (' + cartCount + ')';
+  var t = document.getElementById('toast');
+  t.textContent = '✓ ' + name + ' added to cart!';
+  t.classList.add('show');
+  setTimeout(function(){ t.classList.remove('show'); }, 2500);
+}
+
+// Reveal on scroll
+if('IntersectionObserver' in window){
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry, i){
+      if(entry.isIntersecting){
+        setTimeout(function(){ entry.target.classList.add('visible'); }, i * 60);
+        obs.unobserve(entry.target);
+      }
+    });
+  }, {threshold: 0.05});
+  document.querySelectorAll('.reveal').forEach(function(el){ obs.observe(el); });
+}
+setTimeout(function(){
+  document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('visible'); });
+}, 1500);
+
+// Mobile nav
+document.querySelectorAll('.nav-links a').forEach(function(a){
+  a.addEventListener('click', function(){
+    document.querySelector('.nav-links').classList.remove('open');
+  });
+});
+</script>
+</body>
+</html>
