@@ -621,10 +621,21 @@ if('IntersectionObserver' in window){
     });
   }, {threshold: 0.05});
   document.querySelectorAll('.reveal').forEach(function(el){ obs.observe(el); });
+} else {
+  document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('visible'); });
 }
+
+// Safety fallback — show all sections after 1.5s even if IntersectionObserver fails
 setTimeout(function(){
   document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('visible'); });
 }, 1500);
 
-// Mobile nav
-document.querySelectorAll('.nav-links a').forEach(f
+// Close mobile menu on link click
+document.querySelectorAll('.nl a').forEach(function(a){
+  a.addEventListener('click', function(){
+    document.querySelector('.nl').classList.remove('open');
+  });
+});
+</script>
+</body>
+</html>
